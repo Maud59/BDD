@@ -1,0 +1,72 @@
+**BASE DE DONNES**
+
+- Installation de MySQL Workbench
+- Visual C++ (demandé par Workbench)
+
+- EDIT > preferences > Query Editor > X Use Uppercase Keywords (pour avoir auto-completion en majuscules)
+
+- Connexion en localhost
+
+- Use la DB (ctrl + entrée pour exécuter le code)
+- Pour exécuter une seule ligne, il suffit d'exécuter la sélection
+- (Logo etoile +, appelé snippet) Liste de requêtes favorites
+
+une énumération permet de rentrer les données que l'on souhaite dans la liste
+
+Pour accéder à un serveur distant, il est parfois nécessaire de se connecter à partir de la console. 
+Chercher le fichier mysql.exe et le lancer à partir des commandes
+
+insérer la commande mysql -u root -p (ne jamais mettre le mot de passe directement)
+
+insérer un " SHOW DATABASES; "
+
+describe role;
+
+**exemple :**
+mysql> use blog;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_blog       |
++----------------------+
+| article              |
+| article_has_category |
+| category             |
+| comment              |
+| edit_status          |
+| role                 |
+| user                 |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO `role`(`role_id`, `number`, `label`, `created_at`, `updated_at`) VALUES (null,3,'admin','2018-12-19 00:00:00','2018-12-19 00:00:00');
+Query OK, 1 row affected (0.00 sec)
+
+CREATE TABLE log_connect (log_id int NOT NULL,user_id SMALLINT(5) unsigned NOT NULL,happened_at date,PRIMARY KEY (log_id),FOREIGN KEY (user_id) REFERENCES user(user_id));
+
+**Exercice**
+faire l'UML d'un site de e-commerce
+tables : 
+-produit
+-commandes
+-user
+-adresse
+-statut commande
+-TVA
+-Promotions
+-category
+
+**REQUETE**
+SELECT 
+    c.customer_id, 
+    firstname, 
+    lastname, 
+    email, 
+    total_ttc,
+    o.created_date
+FROM
+    customer AS c
+        INNER JOIN
+    `order`AS o ON c.customer_id = o.customer_id
+ORDER BY total_ttc DESC
+LIMIT 1
